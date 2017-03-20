@@ -1,9 +1,9 @@
 function [L, U] = lu_fac(A)
 
-[n, n] = size(A);
+[n, m] = size(A);
 
 L = eye(n);
-U = zeros(n,n)
+U = zeros(n,m);
 
 for j = 1:n
   if (j == 1)
@@ -16,7 +16,7 @@ for j = 1:n
     z = inv((L(1:j-1, 1:j-1))) * (A(1:j-1,j));
     U(1:j-1, j) = z;
     
-    v(j:n) = A(j:n, j) - L(j:n, 1:j-1)*z
+    v(j:n) = A(j:n, j) - L(j:n, 1:j-1)*z;
   endif
   
   if(j<n)

@@ -1,5 +1,5 @@
-A = pascal(100)
-cholesky_fac(A)
+A = pascal(100);
+cholesky_fac(A);
 
 B = pascal(5)
 cholesky_fac(B)

@@ -1,30 +1,27 @@
-function [R] = alg_rref(A)
+function [A] = alg_rref(A)
 
 [n,m] = size(A);
 
-j = 1
+j = 1;
 for i = 1:n
-  if(A(:,j) == 0)
-    j = j+1
-    
-    if(j>m)
-      return
-    endif
-  endif
-    
-  tmp_i = i;
+
+  x = i
   while(A(i,j)==0)
-    tmp_i = tmp_i + 1;
-    temp = A(i,:);
-    A(i,:) = A(i+1, :);
-    A(i+1, :) =  temp;
+  A(i,j)
+    x = x + 1;
+    if(x>n)
+      break;
+    endif
+    if(A(x,j)!=0)
+      temp = A(i,:);
+      A(i,:) = A(x, :);
+      A(x, :) =  temp;
+      break;
+    endif
   endwhile
   
-  A(i,:) = A(i,:)/A(i,j)
-      
-  for k = 1:n
 
-  endif  
- 
- endif
+end
+
+end
 
