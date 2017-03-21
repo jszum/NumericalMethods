@@ -4,21 +4,21 @@ function [lambda, vector] = iterqr_shift(A, iterations)
 
 lambda = [];
 vector = [];
-Qf = eye(n);
+Qproduct = eye(n);
 I = eye(n);
 
 
 for i = 1:iterations
-  s = A(n,n);
-  shift = s*I;
+  s = A(n,n);                       #choose the element for shift
+  shift = s*I;                      #create shifting diagonal
 
-  [Q,R] = QRgivens_lecture(A-shift);
+  [Q,R] = QRgivens_lecture(A-shift);#apply QR factorization
   A = R*Q+shift;
   
-  Qf = Qf*Q;
+  Qproduct = Qproduct*Q;            #multiply Q product by new Q
   
 endfor
 
 lambda = diag(diag(A));
-vector = Qf;
+vector = Qproduct;
 endfunction

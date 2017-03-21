@@ -1,18 +1,17 @@
 function [lambda, vector] = iterqr(A, iterations)
 
 [n,n] = size(A);
+orig = A
+Qproduct = eye(n,n);
 
-lambda = [];
-vector = [];
-Qf = eye(n);
 for i = 1:iterations
-  [Q,R] = QRgivens_lecture(A);
-  A = R*Q;
+  [Q,R] = qr(A);          #calculating QR
+  A = R*Q;                # assigning next step A
   
-  Qf = Qf*Q;
+  Qproduct = Qproduct*Q;  #
   
 endfor
 
 lambda = diag(diag(A));
-vector = Qf;
+vector = Qproduct;
 endfunction

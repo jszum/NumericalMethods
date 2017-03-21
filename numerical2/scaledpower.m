@@ -14,6 +14,7 @@ q = z/norm(z);
 q_prev = q;
 endfor
 
-lambda = q' *A*q;
+#calculating Rayleigh
+lambda = (q'*A*q)/(q'*q);
 vector = q;
 endfunction

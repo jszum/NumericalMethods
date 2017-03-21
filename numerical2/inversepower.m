@@ -6,10 +6,11 @@ q_prev = rand(n,1);
 q_prev = q_prev/norm(q_prev);
 alpha = 1;
 I = eye(n);
-q = []
-v=[]
+q = [];
+v=[];
 for i = 1:iterations
 
+  #solving (A - alpha*I)v = z
   v = inv(A - alpha*I)*q_prev;
   q = v/norm(v);
   q_prev = q;
