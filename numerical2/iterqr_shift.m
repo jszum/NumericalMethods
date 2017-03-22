@@ -19,6 +19,6 @@ for i = 1:iterations
   
 endfor
 
-lambda = diag(diag(A));
+lambda = (diag(A));
 vector = Qproduct;
 endfunction

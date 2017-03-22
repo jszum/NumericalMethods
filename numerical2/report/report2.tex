@@ -98,11 +98,11 @@ floatplacement=!h
 \supervisor{Rafal Zdunek, D.Sc, K-4/W4}
 \field{Electronics}
 \specialisation{Advanced Applied Electronics}
-\date{20.03.2017}
+\date{21.03.2017}
 \begin{document}
 \selectlanguage{english}
 \maketitle
-
+\tableofcontents
 \newpage
 
 \chapter{Solution to the given problems}
@@ -871,11 +871,261 @@ The Gershgorin circles are based on matrices:\\
 \caption{Matrix A1 and A2}
 \label{fig:screenshot011}
 \end{figure}
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.7\linewidth]{screenshot012}
 \caption{Matrix A3}
 \label{fig:screenshot012}
+\end{figure}
+\newpage
+As the algorithms for complex eigenvalues are currently not finished, only the real eigenvalues will be calculated.
+
+\begin{lstlisting}
+>> task7
+A1 =
+-2  -1   0
+2   0   0
+0   0   2
+
+l =
+-1.52644 -0.47356 2.00000
+
+A2 =
+5   1   1
+0   6   1
+0   0  -5
+
+l =
+5 6 -5
+
+A3 =
+5.20000   0.60000   2.20000
+0.60000   6.40000   0.50000
+2.20000   0.50000   4.70000
+
+l =
+7.6512 5.9132 2.7356
+\end{lstlisting}
+As compared to the visual results, for matrices A2 and A3 that have only real eigenvalues, the results are correct. However, for matrix A only one eigenvalue matches - the one that is real.
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{screenshot013}
+\label{fig:screenshot013}
+\end{figure}
+\begin{lstlisting}
+>> task8
+Coded decompositions:
+
+Scaled power
+Elapsed time is 0.00286198 seconds.
+
+Inverse Power
+Elapsed time is 0.772632 seconds.
+
+QR
+Elapsed time is 1.92643 seconds.
+
+QR shift
+Elapsed time is 1.98247 seconds.
+
+
+Octave decompositions:
+
+Eig
+Elapsed time is 2.12776 seconds.
+
+Schur
+Elapsed time is 2.03479 seconds.
+\end{lstlisting}
+
+The fastest seem to be the Power methods, but we have to remember, that they calculate only the most/least dominant eigenpair, while the rest of tested algorithms calculates all the values.\\
+\\
+On the other hand, QR's are faster than embedded eig() or schur() function, but again: they do not resolve matrices that holds complex values.\\
+The two Octave decompositions can deal with finding comples solutions (the ones that belongs to Imaginary/complex values).
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{screenshot017}
+\label{fig:screenshot017}
+\end{figure}
+Schur's Triangularization results in matrix T, which on its main diagonal has the calculated eigenvalues.\\
+The results of Schur decomposition were compared with Octave 'Eig()' function.
+\begin{lstlisting}
+>> task9
+A1 Matrix Schur
+U =
+-0.70711 + 0.00000i  -0.70711 + 0.00000i
+0.00000 + 0.70711i   0.00000 - 0.70711i
+
+T =
+2.00000  -0.00000
+0.00000   0.00000
+
+
+A1 Matrix embedded eig()
+eigenvectors =
+-0.00000 + 0.70711i   0.00000 + 0.70711i
+-0.70711 + 0.00000i   0.70711 + 0.00000i
+
+eigenvalues =
+Diagonal Matrix
+0   0
+0   2
+
+
+A2 Matrix Schur
+U =
+-0.81650 + 0.00000i  -0.57735 + 0.00000i   0.00000 + 0.00000i
+ 0.00000 + 0.00000i   0.00000 + 0.00000i   1.00000 + 0.00000i
+-0.40825 + 0.40825i   0.57735 - 0.57735i   0.00000 + 0.00000i
+
+T =
+2.00000 - 0.00000i   0.00000 + 0.00000i   0.00000 + 0.00000i
+0.00000 + 0.00000i  -1.00000 + 0.00000i   0.00000 - 0.00000i
+0.00000 + 0.00000i   0.00000 + 0.00000i   2.00000 + 0.00000i
+
+
+A2 Matrix embedded eig()
+eigenvectors =
+ 0.40825 + 0.40825i   0.57735 + 0.57735i   0.00000 + 0.00000i
+-0.00000 + 0.00000i   0.00000 + 0.00000i  -0.70711 + 0.70711i
+-0.81650 + 0.00000i   0.57735 + 0.00000i   0.00000 + 0.00000i
+
+eigenvalues =
+Diagonal Matrix
+-1.0000  0        0
+ 0       2.0000   0
+ 0       0        2.0000
+\end{lstlisting}
+
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{screenshot014}
+\label{fig:screenshot014}
+\end{figure}
+
+\begin{lstlisting}
+>> task10
+
+A1 Matrix
+u =
+-8.1650e-01  -7.9833e-06  -5.7735e-01
+-4.0824e-01  -7.0711e-01   5.7735e-01
+-4.0826e-01   7.0710e-01   5.7735e-01
+
+s =
+1.73205   0.00000
+0.00001  -1.00000
+0.00000   0.00000
+
+v =
+-0.70711  -0.70710
+-0.70710   0.70711
+
+A2 Matrix
+u =
+-0.33333   0.66667   0.66667
+ 0.66667   0.66667  -0.33333
+ 0.66667  -0.33333   0.66667
+
+s =
+3
+0
+0
+
+v =  1
+
+A3 Matrix
+u =
+-1.0000e+00   4.7683e-07  -2.3784e-03
+-1.4274e-03  -8.0000e-01   6.0000e-01
+-1.9024e-03   6.0000e-01   8.0000e-01
+
+s =
+ 4.00000   0.00000   0.00000   0.00000
+-0.00000  -2.00000   0.00000   0.00000
+ 0.00416   0.00000   3.00000   0.00000
+
+v =
+-0.50089   0.50000   0.49911  -0.50000
+-0.50089  -0.50000   0.49911   0.50000
+-0.49911  -0.50000  -0.50089  -0.50000
+-0.49911   0.50000  -0.50089   0.50000
+\end{lstlisting}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot015}
+\caption{Embedded Octave SVD function}
+\label{fig:screenshot015}
+\end{figure}
+
+As the figure \ref{fig:screenshot015} shows, the results are either very similar or identical. The SVD decomposition was coded properly. \\
+
+As an addition to this task, the timing calculations were performed.
+As usual -- the values are given regarded to 1000 rounds to avoid time needed for set-up the environment.
+\begin{lstlisting}
+>> task10
+A1 Matrix
+Elapsed time is 0.371863 seconds. (coded)
+Elapsed time is 0.016098 seconds.
+
+A2 Matrix
+Elapsed time is 0.303616 seconds. (coded)
+Elapsed time is 0.014389 seconds.
+
+A3 Matrix
+Elapsed time is 0.35204 seconds.  (coded)
+Elapsed time is 0.0203929 seconds.
+\end{lstlisting}
+
+The embedded Octave svd is much faster, than the coded one. Even taking under consideration the fact, that coded algorithm performed only 10 iterations per round.
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{screenshot016}
+\label{fig:screenshot016}
+\end{figure}
+The following task11.m file shows the steps that were taken in order to present different compression of image using SVD decomposition.\\
+(Image of resolution 640x480 was used)
+
+\begin{lstlisting}
+pkg load image # load octave package for image processing
+
+
+image = imread('biedronka.jpg');	# load image
+image = rgb2gray(image);			# convert to grayscale
+image = im2double(image);			# process as double
+
+iterations=100;
+
+[u,s,v] = svd(image,iterations);
+
+approximation=10;
+image10 = u(:,1:approximation)*s(1:approximation,1:approximation)*v(:,1:approximation)';
+approximation=20;
+image20 = u(:,1:approximation)*s(1:approximation,1:approximation)*v(:,1:approximation)';
+approximation=40;
+image40 = u(:,1:approximation)*s(1:approximation,1:approximation)*v(:,1:approximation)';
+approximation=80;
+image80 = u(:,1:approximation)*s(1:approximation,1:approximation)*v(:,1:approximation)';
+
+subplot(3,2,1), imshow(image),   title('Original 640x480')
+subplot(3,2,3), imshow(image10), title('approximation=10')
+subplot(3,2,4), imshow(image20), title('approximation=20')
+subplot(3,2,5), imshow(image40), title('approximation=40')
+subplot(3,2,6), imshow(image80), title('approximation=80')
+\end{lstlisting}
+\newpage
+As the pictures below shows - using different numbers of eigenvectors results in 'image compression'. In this case, the 40 eigenvectors are enough to see a nice picture with minimal noise that does not disturb the human eye.
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.1\linewidth]{screenshot018}
+\caption{Results of SVD image compression.}
+\label{fig:screenshot018}
 \end{figure}
 
 
@@ -954,6 +1204,7 @@ vector = Qproduct;
 endfunction
 \end{lstlisting}
 \newpage
+
 Algorithm 4 - Shift QR algorithm\\
 Algorithm calculates the eigenvalue and eigenvectors (based on all Q product).
 \begin{lstlisting}
@@ -980,6 +1231,30 @@ lambda = diag(diag(A));
 vector = Qproduct;
 endfunction
 \end{lstlisting}
+
+Algorithm 10 - SVD decomposition using QR.\\
+Algorithm calculates the eigenvalue and eigenvectors (based on all Q product).
+\begin{lstlisting}
+function [U, S, V] = svdQR(A,iterations)
+
+[n, m]= size(A); # can be rectangular matrix
+U=eye(n);   
+V=eye(m);
+
+R=A';  
+
+for i = 0:iterations
+[Q,R]=qr(R');   # qr decompositions and updating  
+U=U*Q;    
+     
+[Q,R]=qr(R');
+V=V*Q;
+
+endfor
+S=R';               # S is R transposed
+
+endfunction
+\end{lstlisting}
 \begin{thebibliography}{8}
 \addcontentsline{toc}{chapter}{Bibliography}
 %\addcontentsline{toc}{section}{Literatura}
@@ -987,8 +1262,6 @@ endfunction
 Björck, Åke. Numerical methods for least squares problems. Society for Industrial and Applied Mathematics, 1996.
 \bibitem{golub}
 Golub, Gene H., and Charles F. Van Loan. "Matrix computations, 3rd." (1996).
-\bibitem{www}
-Transforming a matrix to reduced row echelon form, http://www.di-mgt.com.au/matrixtransform.html
 \bibitem{zdunek}
 Zdunek R., Numerical Methods - lecture slides.
 \end{thebibliography}
