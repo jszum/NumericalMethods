@@ -1,7 +1,7 @@
 function [lambda, vector] = iterqr(A, iterations)
 
 [n,n] = size(A);
-orig = A
+orig = A;
 Qproduct = eye(n,n);
 
 for i = 1:iterations

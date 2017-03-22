@@ -804,6 +804,79 @@ The conclusion is that the diagonal of the presented matrix does not exist.
 \includegraphics[width=0.8\linewidth]{screenshot007}
 \label{fig:screenshot007}
 \end{figure}
+The following matlab code (with coded algorithms) was used to perform computations:
+\begin{lstlisting}
+A =    [1 2 3 4; 
+		1 2 2 3; 
+		0 2 3 2; 
+		0 0 3 4];
+
+disp(['Matlab embedded eig()'])
+[lambda, vector] = eig(A)
+disp(['QR iteration'])
+[lambda, vector] = iterqr(A,100)
+disp(['Single shift QR'])
+[lambda, vector] = iterqr_shift(A,100)
+\end{lstlisting}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot008}
+\label{fig:screenshot008}
+\end{figure}
+As the results show - the eigenvalues are all the same in case of every method that was used. According to the eigenvectors, only the dominant one match one each other.\\
+It can be a matter of fact, that the solutions are iterative and only approximate.
+
+Now, we can also perform some computations (as it was stated in previous report - each try is a 1000 round loop).
+\\
+\begin{lstlisting}
+Matlab embedded eig()
+Elapsed time is 0.016705 seconds.
+QR iteration
+Elapsed time is 5.19331 seconds.
+Single shift QR
+Elapsed time is 5.3176 seconds.
+\end{lstlisting}
+There is a huge difference between first algorithm (embedded) and the coded QR's. It is certainly the effect of using coded by author QR factorization.
+\\
+\\
+Performing simple test (changing QR factoriation to matlab embedded inside coded algorithm) will show the truth. And in fact it is, as expected -- much shorter execution time:
+\begin{lstlisting}
+Matlab embedded eig()
+Elapsed time is 0.0244899 seconds.
+QR iteration
+Elapsed time is 0.185272 seconds.
+Single shift QR
+Elapsed time is 0.28676 seconds.
+\end{lstlisting}
+\newpage
+\textbf{Problem 7} - Draw the Gershgorin discs and determine the location of the eigenvalues for the matrices. Then compute an approximate eigensystem.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot009}
+\label{fig:screenshot009}
+\end{figure}
+
+The Gershgorin circles are based on matrices:\\
+- circles centers are indicated by the numbers on main diagonal,\\
+- item circle radius is the sum of the remaining elements in the current row.\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{screenshot010}
+\label{fig:screenshot010}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{screenshot011}
+\caption{Matrix A1 and A2}
+\label{fig:screenshot011}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot012}
+\caption{Matrix A3}
+\label{fig:screenshot012}
+\end{figure}
 
 
 \chapter{Listings of algorithms}

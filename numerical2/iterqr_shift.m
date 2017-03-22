@@ -12,7 +12,7 @@ for i = 1:iterations
   s = A(n,n);                       #choose the element for shift
   shift = s*I;                      #create shifting diagonal
 
-  [Q,R] = QRgivens_lecture(A-shift);#apply QR factorization
+  [Q,R] = qr(A-shift);#apply QR factorization
   A = R*Q+shift;
   
   Qproduct = Qproduct*Q;            #multiply Q product by new Q
