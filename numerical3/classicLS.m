@@ -1,12 +1,13 @@
 function [x] = classicLS(A, b)
 
-[m,n] = size(A)
+[m,n] = size(A);
 
 if(m >= n || rank(A) == n)
-  disp(["There is an unique solution"])
+  #disp(["There is an unique solution"]);
   x = inv(A' * A) * A' * b;
-else if ( m < n)
-  disp(["Underdetermined system"])
+else
+  #disp(["Underdetermined system"]);
   x = A' * inv(A * A') * b;
-end
+endif
+
 endfunction
