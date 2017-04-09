@@ -2,9 +2,9 @@ function [x] = tsvd(A,b, it)
 
 [u,s,v] = svdqr(A,it);
 
-c = u'*b
+c = u'*b;
 
-r = rank(A)
+r = rank(A);
 
 x=zeros(size(A,2),1);
 

@@ -244,7 +244,6 @@ Gen. Tikhonov, alpha = 1
 time =  0.041787
 \end{lstlisting}
 \newpage
-
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.7\linewidth]{screenshot009}
@@ -253,10 +252,47 @@ time =  0.041787
 At first, the problem presented in matrices:
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.3\linewidth]{screenshot010}
+\includegraphics[width=0.35\linewidth]{screenshot010}
 \label{fig:screenshot010}
 \end{figure}
+The results below show the solution computed by different methods. The first three methods are pretty the same answers.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{screenshot011}
+\label{fig:screenshot011}
+\end{figure}
 
+
+There were also calculated the timings and the errors of the selected methods:
+\begin{lstlisting}
+Classical LS
+	error =  3.8985
+	time =  0.043488
+	
+SVD LS
+	error =  3.8985
+	time =  0.72264
+	
+QR LS
+	error =  3.8985
+	time =  0.054575
+	
+Tikhonov, alpha = 1
+	error =  3.9098
+	time =  0.057088
+	
+Linear regression
+	error =  4.9385
+	time =  0.071316
+\end{lstlisting}
+As it turned out, the best algorithm considering both time and error is the classical LS fitting. The SVD and QR based algorithms gave the same solution, but were slower (especially SVD, which also in previous tasks was slow).
+\newpage
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot012}
+\label{fig:screenshot012}
+\end{figure}
 
 
 \chapter{Algorithms code}
