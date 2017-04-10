@@ -293,7 +293,116 @@ As it turned out, the best algorithm considering both time and error is the clas
 \includegraphics[width=0.7\linewidth]{screenshot012}
 \label{fig:screenshot012}
 \end{figure}
+In this case, as the position of the missle can be described using parabola, so here we are considering the polynomial of second degree.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\linewidth]{screenshot014}
+\label{fig:screenshot014}
+\end{figure}
 
+Using different methods, the following solutions were obtained:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot013}
+\label{fig:screenshot013}
+\end{figure}
+
+We need to compare the results according to the error and computation time. Then we choose one of them.
+\begin{lstlisting}
+Classical LS
+	error =  0.67612
+	time =  0.049904
+
+SVD LS
+	error =  0.67612
+	time =  0.71043
+
+QR LS
+	error =  0.67612
+	time =  0.053302
+
+Tikhonov, alpha = 1
+	error =  0.68569
+	time =  0.041042
+
+TSVD
+	error =  0.67612
+	time =  0.44019
+
+General-Cross Validation
+	error =  0.68445
+	time =  0.045696
+\end{lstlisting}
+
+There also was a try to refine the result a little (we choose the classical LS result):
+\begin{lstlisting}
+x = refinement(A, alpha1, b, 100);
+bc = A*x;
+disp(["Solution refinement:"])
+error = norm(bc - b)
+\end{lstlisting}
+As it can be seen, after 100 rounds of refinement algorithm, there was not any better solution computed.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.45\linewidth]{screenshot015}
+\label{fig:screenshot015}
+\end{figure}
+
+Therefore the polynomial can be stated as:\\
+\begin{math}
+y = -0.22857 + 0.039829 x -0.000019429 x^2
+\end{math}
+
+The plot of the line described by y is presented on the figure:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot016}
+\caption{}
+\label{fig:screenshot016}
+\end{figure}
+The rocket should land around 2100 km away from point zero. However, we can check the equation roots to determine the more accurate landing position:
+The roots of the presented equation are:\\\\
+\begin{math}
+x_1 = 5.7550
+x_2 = 2044.2450
+\end{math}
+\\\\According to LS solution, the land-point is around 2044km from point zero.
+\newpage
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot017}
+\label{fig:screenshot017}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\linewidth]{screenshot018}
+\label{fig:screenshot018}
+\caption{Task's input data, is presented in the required form - matrices.}
+\end{figure}
+
+For the given data, the solutions were calculated for bot line and quadratic functions:
+\begin{math}
+alpha = \;\;[9.63636 \;\;\;\;0.18182]\\
+alphaq = [13.97203 \;\;0.18182 \;\;-0.43357]\\\\
+\end{math}
+According to results, the functions can be written.\\\\
+\begin{math}
+y = 0.1818 x + 9.63636 \;\;\;\;\;\;\;\;y_q = -0.43357x^2 + 0.18182x + 13.97203\\\\
+L_2
+\end{math}
+-norms were also computed, as it was one of the tasks:
+
+\begin{math}
+l_{2line} = 12.76 \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;l_{2quad} =  1.27\\
+\end{math}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{screenshot020}
+\label{fig:screenshot020}
+\caption{Final solutions are presented on a plot according to points, line and quadratic function.}
+\end{figure}
 
 \chapter{Algorithms code}
 Algorithm \space 1 -- The classical LS fitting.\\
