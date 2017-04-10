@@ -13,10 +13,12 @@ alpha = classicLS(A,b)
 Aq = [data.^0 data.^1 data.^2]
 alphaq = classicLS(Aq,b)
 
-l21 = norm(b - A*alpha,2)
-l22 = norm(b - Aq*alphaq,2)
+error1 = b - A*alpha
+error2 = b - Aq*alphaq
+l21 = norm(error1,2)
+l22 = norm(error2,2)
 
-t=(-5:1:5);
+t=(-5:0.1:5);
 y=alpha(1)+alpha(2)*t;
 yq=alphaq(1)+alphaq(2)*t+alphaq(3)*t.^2;
 

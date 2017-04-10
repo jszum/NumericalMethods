@@ -82,4 +82,10 @@ xlabel('x[km]')
 ylabel('y[km]')
 title('Flight path')
 
-roots([alpha(3) alpha(2) alpha(1)]);
+roots([alpha(3) alpha(2) alpha(1)])
+
+
+x = refinement(A, alpha1, b, 100);
+bc = A*x;
+disp(["Solution refinement:"])
+error = norm(bc - b)
