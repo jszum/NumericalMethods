@@ -98,7 +98,7 @@ floatplacement=!h
 \supervisor{Rafal Zdunek, D.Sc, K-4/W4}
 \field{Electronics}
 \specialisation{Advanced Applied Electronics}
-\date{21.03.2017}
+\date{06.04.2017}
 \begin{document}
 \selectlanguage{english}
 \maketitle
@@ -392,7 +392,7 @@ According to results, the functions can be written.\\\\
 y = 0.1818 x + 9.63636 \;\;\;\;\;\;\;\;y_q = -0.43357x^2 + 0.18182x + 13.97203\\\\
 L_2
 \end{math}
--norms were also computed, as it was one of the tasks:
+-norms of the errors were also computed, as it was one of the tasks:
 
 \begin{math}
 l_{2line} = 12.76 \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;l_{2quad} =  1.27\\
@@ -403,6 +403,266 @@ l_{2line} = 12.76 \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;l_{2quad} =  1.27\\
 \label{fig:screenshot020}
 \caption{Final solutions are presented on a plot according to points, line and quadratic function.}
 \end{figure}
+\newpage
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot021}
+\label{fig:screenshot021}
+\end{figure}
+The following Octave code was prepared to solve the following task:
+\begin{lstlisting}
+x = 0:0.01:pi;
+
+F = pi.^2 - x.^2;
+f = F';
+
+#we assume the largest polynomial
+n = 10;
+for i = 1:n
+G(:,i)=cos(i*x);
+endfor
+
+#Ax = b, so to this task GC = f
+
+C = svdLS(G,f)
+y = G*C;
+
+plot(x,y, "b", x, f, "r");
+
+grid on
+xlabel('x')
+ylabel('y')
+title('Fitting visualisation')
+\end{lstlisting}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot022}
+\caption{Different line fitting (for N = 1,4,7,10)}
+\label{fig:screenshot022}
+\end{figure}
+\newpage
+The error for different n:
+\begin{lstlisting}
+Error for n = 1
+	error =  117.60
+Error for n = 2
+	error =  116.97
+Error for n = 3
+	error =  116.83
+Error for n = 4
+	error =  116.80
+Error for n = 5
+	error =  116.78
+Error for n = 6
+	error =  116.78
+Error for n = 7
+	error =  116.77
+Error for n = 8
+	error =  116.77
+Error for n = 9
+	error =  116.77
+Error for n = 10
+	error =  116.77
+\end{lstlisting}
+
+The error does not vary much according to increasing n value, but of course slight change can be observed.\\
+\textbf{Line is fitted quite well, but there is certainly a constant missing. However according to g(x) function, we weren't supposed to find a solution including constant value.}
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot023}
+\label{fig:screenshot023}
+\end{figure}
+
+This task objective is to find the cubic polynomial coefficients to minimize the presented integral.\\
+To achieve this, the following file was prepared:
+\begin{lstlisting}
+#preparing the input data
+x = 0:0.1:1;
+f = sin(pi*x)';
+
+for i = 1:1:3
+p(:,i)=x.^i;
+endfor
+
+#different methods
+x1 = classicLS(p, f);
+x2 = qrLS(p,f);
+x3 = svdLS(p,f);
+x4 = tikhonovGen(p,f,1);
+x5 = tikhonovIt(p,f,100,0.2);
+x6 = tsvd(p,f,100);
+
+#calculating the functions according to computed coefficients
+Y1 = p.*x1'
+Y2 = p.*x2'
+Y3 = p.*x3'
+Y4 = p.*x4'
+Y5 = p.*x5'
+Y6 = p.*x6'
+
+#minimizing condition
+integral1 = quad(@(x)fun(x,Y1),0,1)
+integral2 = quad(@(x)fun(x,Y2),0,1)
+integral3 = quad(@(x)fun(x,Y3),0,1)
+integral4 = quad(@(x)fun(x,Y4),0,1)
+integral5 = quad(@(x)fun(x,Y5),0,1)
+integral6 = quad(@(x)fun(x,Y6),0,1)
+\end{lstlisting}
+\newpage
+And the following results were obtained:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{screenshot024}
+\label{fig:screenshot024}
+\end{figure}
+
+As it can be seen, the results of every method beside Tikhonov-based, are the same. In case of their equivalence, also the error will be just the same.
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot025}
+\label{fig:screenshot025}
+\end{figure}
+The following code was designed to solve task no. :
+\begin{lstlisting}
+A = [-4 -2 -4 -2; 2 -2 2 1; -4 1 -4 -2]
+b = [-12; 3; 9]
+
+#Task a)
+#x1 = classicLS(A,b)
+#x2 = qrLS(A,b)
+x3 = svdLS(A,b)
+x4 = tikhonovGen(A,b,1)
+x5 = tikhonovIt(A,b,100,0.2)
+x6 = tsvd(A,b,100)
+
+#n1 and n2 cannot be used because of precision
+#n1 = norm(A*x1 - b,2)
+#n2 = norm(A*x2 - b,2)
+n3 = norm(A*x3 - b,2)
+n4 = norm(A*x4 - b,2)
+n5 = norm(A*x5 - b,2)
+n6 = norm(A*x6 - b,2)
+
+#Task b)
+rref(A)
+rank(A)
+Aplus = pseudoinverse(A)
+
+#Task c)
+[Pra, Prah, Pna, Pnah] = projectors(A)
+\end{lstlisting}
+
+Calculations of the LS and the norm of the solution:\begin{figure}[h]
+\centering
+\includegraphics[width=0.3\linewidth]{screenshot026}
+
+\label{fig:screenshot026}
+\end{figure}
+
+According to the RREF, the matrix looks like that:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\linewidth]{screenshot027}
+\caption{RREF of matrix A.}
+\label{fig:screenshot027}
+\end{figure}
+
+As the figure can idicate, the matrix rank should be equal to 2 (which is exactly the answer compiuted by Octave).
+\\
+\\
+We were also requested to compute the pseudoinverse of Matrix A and its orthonormal projectors:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot028}
+\label{fig:screenshot028}
+\end{figure}
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot029}
+\label{fig:screenshot029}
+\end{figure}
+The following code was prepared to solve all the requested tasks:
+\begin{lstlisting}
+A = [1 2 3; 4 5 6; 7 8 9; 10 11 12; 13 14 15]
+x_exact = [1 2 3]'
+b = A*x_exact
+
+x1 = tsvd(A,b,1000)
+x2 = tikhonovIt(A,b,1000,0.1)
+
+Echelon = rref(A)
+RankA = rank(A)
+APlus = pseudoinverse(A)
+
+error1 = sum((x1-x_exact).^2)
+Rerror1 = sum((b-A*x1).^2)
+error2 = sum((x2-x_exact).^2)
+Rerror2 = sum((b-A*x2).^2)
+\end{lstlisting}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot030}
+\label{fig:screenshot030}
+\end{figure}
+
+During computations we obtained exact solution, so all the errors are a result of computer arithmetic and numbers rounding.
+\newpage
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{screenshot031}
+\label{fig:screenshot031}
+\end{figure}
+\begin{lstlisting}
+a=[40; 10; 5; 3; 2; 1; 1];
+
+%Coefficients
+x=1:1:14;
+X = x';
+A = [X.^0 X.^1 X.^2 X.^3 X.^4 X.^5 X.^6];
+%sample x values
+y=40+10*x+5*x.^2+3*x.^3+2*x.^4+x.^5+x.^6;
+
+C = tsvd(A,y',10)
+C_exact = A\y'
+\end{lstlisting}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.2\linewidth]{screenshot032}
+\caption{Using computations the solution that corresponds to exact coefficients was obtained.}
+\label{fig:screenshot032}
+\end{figure}
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{screenshot034}
+
+\label{fig:screenshot034}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{screenshot033}
+\caption{(Norm on the image are the l2 norm calculated from errors.)}
+\label{fig:screenshot033}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \chapter{Algorithms code}
 Algorithm \space 1 -- The classical LS fitting.\\
@@ -420,6 +680,7 @@ else if ( m < n)
 end
 endfunction
 \end{lstlisting}
+
 
 Algorithm \space 2 -- Pseudoinverse\\
 \begin{lstlisting}
@@ -572,52 +833,15 @@ x = inv(A' * A + alpha.*eye(size(A'*A))) * A' * b;
 
 endfunction
 \end{lstlisting}
-\newpage
-\section{Code for solving particular tasks}
-Task1
-\begin{lstlisting}
-A1 = [3 -1; 1 2; 2 1];
-b1 = [4; 0; 1];
-
-disp(["Classical LS"])
-tic
-for i = 1:1000
-x1 = classicLS(A1,b1);
-endfor
-time = toc
-
-disp(["SVD LS"])
-tic
-for i = 1:1000
-x11 = svdLS(A1,b1);
-endfor
-time = toc
-
-disp(["QR LS"])
-tic
-for i = 1:1000
-x111 = qrLS(A1,b1);
-endfor
-time = toc
-
-disp(["regressionl"])
-tic
-for i = 1:1000
-x1111 = regression(A1,b1);
-endfor
-time = toc
-
-[...]
-
-The similar calculations are performed for the remaining matrices.
-\end{lstlisting}
 \begin{thebibliography}{8}
 \addcontentsline{toc}{chapter}{Bibliography}
 %\addcontentsline{toc}{section}{Literatura}
 \bibitem{bjorck}
 Björck, Åke. Numerical methods for least squares problems. Society for Industrial and Applied Mathematics, 1996.
-\bibitem{golub}
-Golub, Gene H., and Charles F. Van Loan. "Matrix computations, 3rd." (1996).
+\bibitem{meyer} 
+C. D. Meyer, Matrix Analysis and Applied Linear Algebra, SIAM, 2000, 
+\bibitem{zarowski}
+Ch. Zarowski, An Introduction to Numerical Analysis for Electrical and Computer Engineers, Wiley, 2004
 \bibitem{zdunek}
 Zdunek R., Numerical Methods - lecture slides.
 \end{thebibliography}
