@@ -13,8 +13,16 @@ x = [1 0 1 1 0]'
 b = A*x
 bm = Am*x
 
+disp(["Regularized focuss"])
 x1 = focuss(A,b,0.5,1e-6)
 error_x1 = norm(b- A*x1)
 
 x1m = focuss(Am,bm, 0.5, 1e-6)
+error_x1m = norm(bm-Am*x1m)
+
+disp(["MFocuss"])
+x1 = mfocuss(A,b,0.1,1e-6)
+error_x1 = norm(b- A*x1)
+
+x1m = mfocuss(Am,bm, 0.1, 1e-6)
 error_x1m = norm(bm-Am*x1m)
