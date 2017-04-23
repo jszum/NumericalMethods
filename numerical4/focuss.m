@@ -1,7 +1,7 @@
 function [x] = focuss(A,b,p,lambda)
 
 [m,n] = size(A);
-[o,p] = size(b);
+
 
 x = rand(n,1);
 I = eye(m);
