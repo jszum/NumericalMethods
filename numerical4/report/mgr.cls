@@ -233,7 +233,7 @@
 \newcommand{\@napisProwadzacy}{Prowadz\k{a}cy prac\k{e}:}
 \newcommand{\@napisOcena}{Ocena pracy:}
 \if@eng
-\renewcommand{\@naglowek}{Numerical Methods:\\Least Squares}
+\renewcommand{\@naglowek}{Numerical Methods:\\Underdetermined systems}
 \renewcommand{\@napisProwadzacy}{Supervisor:}
 \renewcommand{\@napisOcena}{Grade:}
 \fi
