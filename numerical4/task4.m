@@ -8,17 +8,22 @@ p0 = 0;
 p1 = 1;
 lambda = 1e-8;
 
-x = (b\A)'
+x = (b\A)';
+x_transposed = x'
 
-x_focuss0 = focuss(A,b,p0, lambda)
-x_focuss1 = focuss(A,b,p1, lambda)
+x_focuss0 = focuss(A,b,p0, lambda,1);
+x_focuss1 = focuss(A,b,p1, lambda,1);
+x_focuss0'
+x_focuss1'
 
-x_mfocuss0 = mfocuss(A,b,p0, lambda)
-x_mfocuss1 = mfocuss(A,b,p1, lambda)
-
+x_mfocuss0 = mfocuss(A,b,p0, lambda,1);
+x_mfocuss1 = mfocuss(A,b,p1, lambda,1);
+x_mfocuss0'
+x_mfocuss1'
 
 # residual error
 e_focuss0 = norm(A*x_focuss0 -b)
 e_focuss1 = norm(A*x_focuss1 -b)
+
 e_mfocuss0 = norm(A*x_mfocuss0 -b)
 e_mfocuss1 = norm(A*x_mfocuss1 -b)

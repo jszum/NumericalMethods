@@ -2,7 +2,7 @@ function [x] = pseudoinverse(A)
 
 [m,n] = size(A);
 r = rank(A);
-[u,s,v] = svdqr(A,20);
+[u,s,v] = svd(A);
 
 x = zeros(n,m);
 for i = 1:r

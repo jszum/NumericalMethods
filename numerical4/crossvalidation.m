@@ -4,8 +4,6 @@ C = inv(A'*A);
 
 M = A' * A + (mi.^2).^C'*C;
 
-
 x = inv(M)*A'*b;
-
 
 endfunction

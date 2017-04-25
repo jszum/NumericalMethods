@@ -51,5 +51,5 @@ for i = 1:iterations
 end
 
 x = xk;
-completed_iterations
+completed_iterations;
 endfunction

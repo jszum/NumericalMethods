@@ -5,28 +5,35 @@ A =[ 1 2 2 3 1;
      
      
 #five signals, now 100 samples each
-x = randn(5,100);
+xg = randn(5,100);
 
 #convert to "discrete"
-x(x < 0) = 0;
-x(x > 0) = 1;
+xg(xg < 0) = 0;
+xg(xg > 0) = 1;
 
 #sum to find when condition "at most 3 non zeros at the time" is exceeded
-E = sum(x,1);
+E = sum(xg,1);
 n = find(E>3);
 
-#and wipe them
-x(:,n) = [];
+#and wipe when more than 3 are non-zeros
+xg(:,n) = [];
      
-b = A*x;
+bg = A*xg;
 
 for i=1:5
-x(:,i)
+disp(["Signal "])
+x = xg(:,i);
+b = bg(:,i);
+x'
 disp(["Focuss"])
-xf = focuss(A,b(:,i), 0.1, 1e-12)
-error_x1m = norm(A*xf)/norm(b)
+xf = focuss(A,bg(:,i), 0.1, 1e-12,1);
+xFOCUSS_transposed = xf'
+solution_error = norm(x - xf)
+residual_error = norm(b - A*xf)
 
 disp(["MFocuss"])
-xm = mfocuss(A,b(:,i),0.1,1e-12)
-error_x1 = norm(A*xm)/norm(b)
+xm = mfocuss(A,bg(:,i),0.1,1e-12,1);
+xMFOCUSS_transposed = xm'
+solution_error = norm(x - xm)
+residual_error = norm(b - A*xm)
 endfor
